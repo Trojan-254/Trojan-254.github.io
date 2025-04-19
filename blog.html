@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimizing Rust Performance | Samwuel Simiyu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+    <div x-data="{ mobileMenuOpen: false }">
+        <!-- Navbar -->
+        <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-sm z-10 border-b border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="index.html" class="text-xl font-bold text-amber-500">&lt;SS/&gt;</a>
+                        <div class="hidden md:block ml-10">
+                            <div class="flex items-baseline space-x-4">
+                                <a href="index.html#home" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Home</a>
+                                <a href="index.html#about" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">About</a>
+                                <a href="index.html#skills" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Skills</a>
+                                <a href="index.html#projects" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Projects</a>
+                                <a href="index.html#blog" class="px-3 py-2 rounded-md text-sm font-medium text-amber-500 transition duration-150">Blog</a>
+                                <a href="index.html#contact" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex items-center">
+                        <a href="https://github.com/Trojan-254" target="_blank" class="p-2 text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/samwuel-s254/" target="_blank" class="p-2 text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="ml-4 px-4 py-2 rounded-md text-sm font-medium bg-amber-500 text-gray-900 hover:bg-amber-400 transition duration-150">Resume</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-300 hover:text-amber-500">
+                            <i x-show="!mobileMenuOpen" class="fas fa-bars text-xl"></i>
+                            <i x-show="mobileMenuOpen" class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div x-show="mobileMenuOpen" class="md:hidden bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-sm">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="index.html#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Home</a>
+                    <a href="index.html#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">About</a>
+                    <a href="index.html#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Skills</a>
+                    <a href="index.html#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Projects</a>
+                    <a href="index.html#blog" class="block px-3 py-2 rounded-md text-base font-medium text-amber-500">Blog</a>
+                    <a href="index.html#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Contact</a>
+                </div>
+                <div class="pt-4 pb-3 border-t border-gray-700">
+                    <div class="flex items-center justify-center space-x-4 px-5">
+                        <a href="https://github.com/Trojan-254" target="_blank" class="text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/samwuel-s254/" target="_blank" class="text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="px-4 py-2 rounded-md text-sm font-medium bg-amber-500 text-gray-900 hover:bg-amber-400">Resume</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Blog Post Header -->
+        <header class="pt-32 pb-16 bg-gray-800">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center mb-6 space-x-2">
+                    <a href="blog.html" class="text-amber-500 hover:text-amber-400">
+                        <i class="fas fa-arrow-left mr-2"></i>All Posts
+                    </a>
+                </div>
+                <div class="mb-8">
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+                        Optimizing Rust Performance: The Hidden Costs of Abstractions
+                    </h1>
+                    <div class="flex flex-wrap items-center text-gray-400 text-sm md:text-base">
+                        <div class="flex items-center mr-6 mb-2">
+                            <img src="./images/simiyu.png" alt="Samwuel Simiyu" class="w-8 h-8 rounded-full mr-2">
+                            <span>Samwuel Simiyu</span>
+                        </div>
+                        <div class="flex items-center mr-6 mb-2">
+                            <i class="far fa-calendar-alt mr-2 text-amber-500"></i>
+                            <span>April 10, 2025</span>
+                        </div>
+                        <div class="flex items-center mr-6 mb-2">
+                            <i class="far fa-clock mr-2 text-amber-500"></i>
+                            <span>10 min read</span>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-tag mr-2 text-amber-500"></i>
+                            <span class="bg-gray-700 text-amber-500 text-xs px-2 py-1 rounded">Rust</span>
+                        </div>
+                    </div>
+                </div>
+                <img src="./images/Futurism.jpeg" alt="Blog Post Header" class="w-full h-64 md:h-80 object-cover rounded-lg shadow-lg">
+            </div>
+        </header>
+
+        <!-- Blog Post Content -->
+        <main class="py-16">
+            <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="prose prose-lg prose-invert prose-amber mx-auto">
+                    <p class="text-xl leading-relaxed mb-8">
+                        Abstractions are at the heart of modern software development, allowing us to build complex systems without drowning in details. In Rust, we have powerful abstractions like traits, generics, and higher-order functions. But these abstractions can sometimes come with hidden performance costs that may surprise even experienced developers.
+                    </p>
+                    
+                    <h2 class="text-2xl font-bold mt-12 mb-6 text-amber-500">Understanding Rust's Zero-Cost Abstraction Philosophy</h2>
+                    
+                    <p class="mb-6">
+                        Rust promises "zero-cost abstractions," meaning you shouldn't pay for what you don't use. While this is largely true compared to many other languages, abstractions in Rust can still introduce subtle performance implications that are important to understand.
+                    </p>
+                    
+                    <p class="mb-6">
+                        Let's explore some common abstractions in Rust and understand their potential performance impacts:
+                    </p>
+                    
+                    <h3 class="text-xl font-bold mt-10 mb-4 text-amber-500">1. Trait Objects vs. Static Dispatch</h3>
+                    
+                    <p class="mb-4">
+                        One of the most significant performance differences comes from choosing between static dispatch (using generics) and dynamic dispatch (using trait objects).
+                    </p>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 my-8">
+                        <p class="font-semibold mb-2 text-amber-500">Static Dispatch with Generics:</p>
+                        <pre><code class="language-rust">
+fn process<T: Processor>(item: &T) {
+    item.process();
+}
+
+// At compile time, specialized versions are created for each type
+                        </code></pre>
+                        
+                        <p class="font-semibold mb-2 mt-6 text-amber-500">Dynamic Dispatch with Trait Objects:</p>
+                        <pre><code class="language-rust">
+fn process(item: &dyn Processor) {
+    item.process();
+}
+
+// At runtime, a vtable lookup happens to find the right method
+                        </code></pre>
+                    </div>
+                    
+                    <p class="mb-6">
+                        <strong>Performance implications:</strong> Static dispatch enables monomorphization, where the compiler generates specialized code for each concrete type. This allows for inlining and other optimizations but can increase binary size. Dynamic dispatch uses a vtable lookup at runtime, which adds a small overhead but keeps the binary smaller.
+                    </p>
+
+                    <h3 class="text-xl font-bold mt-10 mb-4 text-amber-500">2. Iterators and Closures</h3>
+                    
+                    <p class="mb-4">
+                        Rust's iterators provide clean, functional-style code, but their performance characteristics depend on how they're used.
+                    </p>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 my-8">
+                        <pre><code class="language-rust">
+// This chain of iterator operations
+let sum: u32 = (0..1000)
+    .filter(|x| x % 2 == 0)
+    .map(|x| x * x)
+    .sum();
+
+// Can be optimized by the compiler to something resembling:
+let mut sum = 0;
+for i in 0..1000 {
+    if i % 2 == 0 {
+        sum += i * i;
+    }
+}
+                        </code></pre>
+                    </div>
+                    
+                    <p class="mb-6">
+                        <strong>Performance implications:</strong> With optimizations enabled, Rust can often optimize iterator chains to be as efficient as manual loops. However, complex closures or those that capture their environment can sometimes prevent full optimization.
+                    </p>
+
+                    <h3 class="text-xl font-bold mt-10 mb-4 text-amber-500">3. Borrowing vs. Cloning</h3>
+                    
+                    <p class="mb-4">
+                        Rust's ownership system encourages borrowing data when possible, but sometimes copying or cloning is needed:
+                    </p>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 my-8">
+                        <pre><code class="language-rust">
+// Borrowing (reference) - no copy overhead
+fn process_borrowed(data: &[u32]) {
+    // Use data without owning it
+}
+
+// Cloning - creates a copy
+fn process_cloned(data: Vec<u32>) {
+    // Takes ownership of a new copy
+}
+
+let numbers = vec![1, 2, 3, 4, 5];
+process_borrowed(&numbers); // Fast, just passes a reference
+process_cloned(numbers.clone()); // Slower, makes a full copy
+                        </code></pre>
+                    </div>
+
+                    <h2 class="text-2xl font-bold mt-12 mb-6 text-amber-500">Measuring Performance Impact</h2>
+                    
+                    <p class="mb-6">
+                        It's crucial to measure rather than guess when it comes to performance optimization. Rust provides excellent tools for benchmarking.
+                    </p>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 my-8">
+                        <pre><code class="language-rust">
+#![feature(test)]
+extern crate test;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test::Bencher;
+
+    #[bench]
+    fn bench_static_dispatch(b: &mut Bencher) {
+        // Benchmark code with static dispatch
+    }
+
+    #[bench]
+    fn bench_dynamic_dispatch(b: &mut Bencher) {
+        // Benchmark code with dynamic dispatch
+    }
+}
+                        </code></pre>
+                    </div>
+                    
+                    <p class="mb-6">
+                        Using <code>cargo bench</code> with the above setup can help quantify the actual performance differences.
+                    </p>
+
+                    <h2 class="text-2xl font-bold mt-12 mb-6 text-amber-500">Practical Optimization Strategies</h2>
+                    
+                    <ol class="list-decimal pl-6 mb-8 space-y-4">
+                        <li>
+                            <strong>Profile before optimizing:</strong> Use tools like <code>perf</code>, <code>flamegraph</code>, or Rust's built-in profiling features to identify actual bottlenecks.
+                        </li>
+                        <li>
+                            <strong>Consider compile times:</strong> Heavy use of generics and inlining can significantly increase compile times. Balance runtime performance with development experience.
+                        </li>
+                        <li>
+                            <strong>Use release builds:</strong> Debug builds in Rust have minimal optimizations. Always benchmark with <code>--release</code> flag.
+                        </li>
+                        <li>
+                            <strong>Be aware of LLVM limitations:</strong> Some Rust abstractions depend on LLVM's ability to optimize them away. This can vary between Rust versions.
+                        </li>
+                        <li>
+                            <strong>Consider inlining hints:</strong> Use <code>#[inline]</code> and <code>#[inline(never)]</code> attributes when you have specific information about function call frequency.
+                        </li>
+                    </ol>
+
+                    <h2 class="text-2xl font-bold mt-12 mb-6 text-amber-500">Case Study: Optimizing a Data Processing Pipeline</h2>
+                    
+                    <p class="mb-6">
+                        Let's examine a real-world example of optimizing a data processing pipeline in Rust:
+                    </p>
+                    
+                    <div class="bg-gray-800 rounded-lg p-6 my-8">
+                        <pre><code class="language-rust">
+// Original version using trait objects
+struct Pipeline {
+    processors: Vec<Box<dyn DataProcessor>>,
+}
+
+impl Pipeline {
+    fn process(&self, data: &mut Data) {
+        for processor in &self.processors {
+            processor.process(data);
+        }
+    }
+}
+
+// Optimized version using generics and a type-level list
+struct Pipeline<P: ProcessorList> {
+    processors: P,
+}
+
+impl<P: ProcessorList> Pipeline<P> {
+    fn process(&self, data: &mut Data) {
+        self.processors.process_all(data);
+    }
+}
+                        </code></pre>
+                    </div>
+                    
+                    <p class="mb-6">
+                        The optimized version using compile-time composition showed a 30% performance improvement for critical data processing paths, at the cost of more complex compile-time machinery.
+                    </p>
+
+                    <h2 class="text-2xl font-bold mt-12 mb-6 text-amber-500">Conclusion</h2>
+                    
+                    <p class="mb-6">
+                        Rust's abstractions are powerful, but understanding their performance characteristics is essential for writing efficient code. The beauty of Rust is that it allows you to write high-level, expressive code while still giving you the tools to optimize critical paths when necessary.
+                    </p>
+                    
+                    <p class="mb-6">
+                        Remember that premature optimization is still the root of much evil. Start with clean, correct code using appropriate abstractions, measure performance, and optimize only when necessary. Rust's ownership model and zero-cost abstraction philosophy already give you a great performance baseline to work from.
+                    </p>
+                    
+                    <div class="border-t border-gray-700 mt-12 pt-8">
+                        <div class="flex items-center mb-6">
+                            <img src="./images/simiyu.png" alt="Samwuel Simiyu" class="w-16 h-16 rounded-full mr-4">
+                            <div>
+                                <h3 class="font-bold text-lg">Samwuel Simiyu</h3>
+                                <p class="text-gray-400">Backend Developer specializing in Rust and systems programming, focusing on high-performance, reliable software solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Share and Tags -->
+                <div class="border-t border-gray-700 mt-12 pt-8 pb-4">
+                    <div class="flex flex-wrap justify-between items-center">
+                        <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                            <span class="text-gray-400">Share:</span>
+                            <a href="#" class="text-gray-400 hover:text-amber-500">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-amber-500">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-amber-500">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-amber-500">
+                                <i class="fab fa-reddit"></i>
+                            </a>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-800 text-amber-500 text-xs px-3 py-1 rounded-full">Rust</span>
+                            <span class="bg-gray-800 text-amber-500 text-xs px-3 py-1 rounded-full">Performance</span>
+                            <span class="bg-gray-800 text-amber-500 text-xs px-3 py-1 rounded-full">Systems Programming</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Related Posts -->
+            <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+                <h2 class="text-2xl font-bold mb-8">Related Articles</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                        <img src="./images/distributed-systems.jpeg" alt="Related Post" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold mb-2">Building Distributed Systems: Lessons from the Trenches</h3>
+                            <p class="text-gray-300 mb-4 text-sm">Practical insights from years of building resilient distributed systems at scale.</p>
+                            <a href="#" class="text-amber-500 hover:text-amber-400 text-sm">Read Article →</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                        <img src="./images/rest api.jpeg" alt="Related Post" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold mb-2">Type-Safe API Design with TypeScript</h3>
+                            <p class="text-gray-300 mb-4 text-sm">Best practices for designing robust, type-safe APIs in TypeScript that scale with your project.</p>
+                            <a href="#" class="text-amber-500 hover:text-amber-400 text-sm">Read Article →</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                        <img src="./images/memory.jpg" alt="Related Post" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold mb-2">Memory Safety Without Garbage Collection in Rust</h3>
+                            <p class="text-gray-300 mb-4 text-sm">Exploring how Rust's ownership system provides memory safety without runtime overhead.</p>
+                            <a href="#" class="text-amber-500 hover:text-amber-400 text-sm">Read Article →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comments Section -->
+            <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+                <h2 class="text-2xl font-bold mb-8">Comments</h2>
+                <div class="mb-8">
+                    <form class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-4">Leave a Comment</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                                <input type="text" id="name" class="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                                <input type="email" id="email" class="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="comment" class="block text-sm font-medium mb-2">Comment</label>
+                            <textarea id="comment" rows="4" class="w-full bg-gray-900 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"></textarea>
+                        </div>
+                        <button type="submit" class="bg-amber-500 text-gray-900 rounded-md px-4 py-2 font-medium hover:bg-amber-400 transition duration-150">Post Comment</button>
+                    </form>
+                </div>
+                
+                <div class="space-y-8">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <div class="flex items-start mb-4">
+                            <img src="/api/placeholder/40/40" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Alex Johnson</h4>
+                                <span class="text-gray-400 text-sm">April 12, 2025</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-300">Great article! I've been struggling with understanding when to use trait objects vs generics in my Rust code. Your explanations around the performance trade-offs were very helpful.</p>
+                        <button class="mt-4 text-amber-500 text-sm hover:text-amber-400">Reply</button>
+                    </div>
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <div class="flex items-start mb-4">
+                            <img src="/api/placeholder/40/40" alt="User Avatar" class="w-10 h-10 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold">Maria Rodriguez</h4>
+                                <span class="text-gray-400 text-sm">April 11, 2025</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-300">Have you considered benchmarking these abstractions on embedded systems? I've found the performance characteristics can be quite different there, especially with limited optimization capabilities.</p>
+                        <button class="mt-4 text-amber-500 text-sm hover:text-amber-400">Reply</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Newsletter -->
+        <section class="bg-gray-800 py-16">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">Subscribe to My Newsletter</h2>
+                <p class="text-gray-300 mb-8">Get notified when I publish new articles about Rust, systems programming, and backend development.</p>
+                <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Your email address" class="flex-grow bg-gray-900 border border-gray-700 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent">
+                    <button type="submit" class="bg-amber-500 text-gray-900 rounded-md px-6 py-3 font-medium hover:bg-amber-400 transition duration-150">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <div class="text-xl font-bold text-amber-500">&lt;SS/&gt;</div>
+                        <p class="text-gray-400 mt-2">Building robust systems that scale.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-6">
+                        <a href="index.html#home" class="text-gray-300 hover:text-amber-500 transition duration-150">Home</a>
+                        <a href="index.html#about" class="text-gray-300 hover:text-amber-500 transition duration-150">About</a>
+                        <a href="index.html#skills" class="text-gray-300 hover:text-amber-500 transition duration-150">Skills</a>
+                        <a href="index.html#projects" class="text-gray-300 hover:text-amber-500 transition duration-150">Projects</a>
+                        <a href="index.html#blog" class="text-gray-300 hover:text-amber-500 transition duration-150">Blog</a>
+                        <a href="index.html#contact" class="text-gray-300 hover:text-amber-500 transition duration-150">Contact</a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400">© 2025 Samwuel Simiyu. All rights reserved.</p>
+                    <div class="flex space-x-4 mt-4 md:mt-0">
+                        <a href="https://github.com/Trojan-254" class="text-gray-400 hover:text-amber-500">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/samwuel-s254/" class="text-gray-400 hover:text-amber-500">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-amber-500">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Samwuel Simiyu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.0/cdn.min.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+    <div x-data="{ mobileMenuOpen: false }">
+        <!-- Navbar -->
+        <nav class="fixed w-full bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-sm z-10 border-b border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex items-center">
+                        <a href="index.html" class="text-xl font-bold text-amber-500">&lt;SS/&gt;</a>
+                        <div class="hidden md:block ml-10">
+                            <div class="flex items-baseline space-x-4">
+                                <a href="index.html#home" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Home</a>
+                                <a href="index.html#about" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">About</a>
+                                <a href="index.html#skills" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Skills</a>
+                                <a href="projects.html" class="px-3 py-2 rounded-md text-sm font-medium text-amber-500 transition duration-150">Projects</a>
+                                <a href="blog.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Blog</a>
+                                <a href="index.html#contact" class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500 transition duration-150">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex items-center">
+                        <a href="https://github.com/Trojan-254" target="_blank" class="p-2 text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/samwuel-s254/" target="_blank" class="p-2 text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="ml-4 px-4 py-2 rounded-md text-sm font-medium bg-amber-500 text-gray-900 hover:bg-amber-400 transition duration-150">Resume</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-300 hover:text-amber-500">
+                            <i x-show="!mobileMenuOpen" class="fas fa-bars text-xl"></i>
+                            <i x-show="mobileMenuOpen" class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div x-show="mobileMenuOpen" class="md:hidden bg-gray-800 bg-opacity-90 backdrop-filter backdrop-blur-sm">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="index.html#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Home</a>
+                    <a href="index.html#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">About</a>
+                    <a href="index.html#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Skills</a>
+                    <a href="projects.html" class="block px-3 py-2 rounded-md text-base font-medium text-amber-500">Projects</a>
+                    <a href="blog.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Blog</a>
+                    <a href="index.html#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-amber-500">Contact</a>
+                </div>
+                <div class="pt-4 pb-3 border-t border-gray-700">
+                    <div class="flex items-center justify-center space-x-4 px-5">
+                        <a href="https://github.com/Trojan-254" target="_blank" class="text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/samwuel-s254/" target="_blank" class="text-gray-300 hover:text-amber-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="px-4 py-2 rounded-md text-sm font-medium bg-amber-500 text-gray-900 hover:bg-amber-400">Resume</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Header -->
+        <section class="pt-24 pb-12 bg-gradient-to-b from-gray-800 to-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">My <span class="text-amber-500">Projects</span></h1>
+                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                        Showcasing my journey in systems programming, backend development, and software engineering.
+                        Here's a collection of projects that highlight my expertise in Rust, C, and other technologies.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Categories -->
+        <section class="py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-center mb-12">
+                    <div class="inline-flex flex-wrap gap-4 p-2 bg-gray-800 rounded-lg">
+                        <button class="px-4 py-2 rounded-md text-sm font-medium bg-amber-500 text-gray-900">All Projects</button>
+                        <button class="px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500">Rust</button>
+                        <button class="px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500">Systems</button>
+                        <button class="px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500">Web</button>
+                        <button class="px-4 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-amber-500">C</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section class="py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold mb-8 flex items-center">
+                    <span class="text-amber-500 mr-2"><i class="fas fa-star"></i></span> 
+                    Featured Projects
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:-translate-y-2">
+                        <img src="./images/shujaa.jpg" alt="ShujaaDNS Project" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold">DNS stub resolver</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                                    <span class="px-2 py-1 text-xs bg-blue-500 text-gray-900 rounded">DNS</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-6">A minimal DNS stub resolver written in Rust. It takes a domain name from the client, forwards the request to an upstream DNS server, and returns the result all in a few clean lines of async Rust. Designed to understand the raw mechanics of DNS and network programming without the complexity of full DNS stacks.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Active</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:-translate-y-2">
+                        <img src="./images/rusty.png" alt="Rusty HTTP Server" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold">Rusty HTTP Server</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                                    <span class="px-2 py-1 text-xs bg-green-500 text-gray-900 rounded">Networking</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-6">A highly concurrent, low-latency HTTP server implemented in Rust. Designed to handle numerous simultaneous client connections while maintaining HTTP/1.1 protocol compliance.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Active</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="https://github.com/Trojan-254/HTTP-Server-in-Rust" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform transition duration-300 hover:-translate-y-2">
+                        <img src="./images/monty.jpg" alt="Monty Interpreter" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-bold">Monty Interpreter</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-blue-400 text-gray-900 rounded">C</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-6">An interpreter for Monty ByteCodes files that bridges the gap between scripting and programming languages with a unique stack implementation and custom instructions.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Active</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Projects -->
+        <section class="py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold mb-8 flex items-center">
+                    <span class="text-amber-500 mr-2"><i class="fas fa-code-branch"></i></span> 
+                    All Projects
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project 1 -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/3">
+                            <img src="./images/distributed-systems.jpeg" alt="RustDB" class="w-full h-40 object-cover rounded-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold">ShujaaDNS</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                                    <span class="px-2 py-1 text-xs bg-blue-500 text-gray-900 rounded">PostgreSQL</span>
+                                    <span class="px-2 py-1 text-xs bg-red-500 text-gray-900 rounded">Redis</span>
+
+
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">An ultra-light, Rust-powered DNS stub resolver built from scratch to maximize speed, privacy, and parental control.
+                                It supports caching, pattern-based filtering, user/group rules, and real-time query logging. Optimized using radix trees and async design for lightning-fast resolution.</p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="bg-yellow-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">In Progress</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="https://github.com/Trojan-254/proxy" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/3">
+                            <img src="./images/task-scheduler.jpeg" alt="API Gateway" class="w-full h-40 object-cover rounded-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold">Task Scheduler</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-blue-500 text-gray-900 rounded">TypeScript</span>
+                                    <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">A high-performance, event-driven task scheduling system built in Rust using the Tokio async runtime. This robust scheduler provides a scalable and fault-tolerant framework for queuing, distributing, and executing asynchronous tasks across multiple worker threads..</p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Active</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="https://github.com/Trojan-254/task-scheduler" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/3">
+                            <img src="./images/Futurism.jpeg" alt="Simple Shell" class="w-full h-40 object-cover rounded-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold">Simple Shell</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-blue-400 text-gray-900 rounded">C</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">A UNIX command line interpreter that supports command execution, piping, redirection, and environment variable management.</p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Completed course project</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/3">
+                            <img src="./images/Futurism.jpeg" alt="Secure Messaging" class="w-full h-40 object-cover rounded-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold">Secure Messaging</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                                    <span class="px-2 py-1 text-xs bg-purple-500 text-gray-900 rounded">Cryptography</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">End-to-end encrypted messaging library with forward secrecy and quantum-resistant encryption algorithms implemented in Rust.</p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Active</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4 -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/3">
+                            <img src="./images/auth.jpeg" alt="TypeStorm ORM" class="w-full h-40 object-cover rounded-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold">Authentication and Auth service</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-blue-500 text-gray-900 rounded">Nodejs</span>
+                                    <span class="px-2 py-1 text-xs bg-yellow-500 text-gray-900 rounded">Expressjs</span>
+
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">Secure auth service using Node.js, Express, JWT, and MongoDB. Supports user sign-up, login, role-based access control, and hashed password storage.</p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">Active</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="https://github.com/Trojan-254/Authentication_and_Authorization-service" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-github"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 5 -->
+                    <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg p-6 flex flex-col md:flex-row gap-6">
+                        <div class="w-full md:w-1/3">
+                            <img src="./images/zetu-cart.jpeg" alt="Distributed Cache" class="w-full h-40 object-cover rounded-lg">
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold">Zetu Cart</h3>
+                                <div class="flex space-x-2">
+                                    <span class="px-2 py-1 text-xs bg-green-500 text-gray-900 rounded">Nodejs</span>
+                                    <span class="px-2 py-1 text-xs bg-green-500 text-gray-900 rounded">MongoDB</span>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 mb-4">Full-stack e-commerce platform for Kenya built with Node.js, MongoDB, and TailwindCSS. Offers product listings, checkout, and a smooth shopping experience with local market focus..</p>
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <span class="bg-green-500 rounded-full w-3 h-3 mr-2"></span>
+                                    <span class="text-sm text-gray-400">completed</span>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <a href="https://zetucartmain-e896aac1d742.herokuapp.com/" class="text-amber-500 hover:text-amber-400">
+                                        <i class="fab fa-globe"></i> Live
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                <div class="flex justify-center mt-12">
+                    <button class="px-6 py-3 bg-gray-800 border border-amber-500 text-amber-500 rounded-md font-medium hover:bg-amber-500 hover:text-gray-900 transition duration-150">
+                        Load More Projects
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Open Source Contributions -->
+        <section class="py-12 bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl font-bold mb-8 flex items-center">
+                    <span class="text-amber-500 mr-2"><i class="fas fa-code-branch"></i></span> 
+                    Open Source Contributions
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <i class="fab fa-github text-amber-500 text-xl mr-2"></i>
+                                <h3 class="font-bold">HTeaPot HTTP Server</h3>
+                            </div>
+                            <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                        </div>
+                        <p class="text-gray-300 mb-4">Contributed performance improvements to the HTTP lightweight server implementation.</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">5 PRs merged</span>
+                            <a href="https://github.com/Az107/HTeaPot/pull/23" class="text-amber-500 hover:text-amber-400">View Contributions</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <i class="fab fa-github text-amber-500 text-xl mr-2"></i>
+                                <h3 class="font-bold">EasySockets TCP messaging protocol</h3>
+                            </div>
+                            <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                        </div>
+                        <p class="text-gray-300 mb-4">Fixed bug in async runtime scheduler, improved documentation and socket error handling.</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">3 PRs merged</span>
+                            <a href="https://github.com/Larmbs/easy-sockets-rs/pull/2" class="text-amber-500 hover:text-amber-400">View Contributions</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <i class="fab fa-github text-amber-500 text-xl mr-2"></i>
+                                <h3 class="font-bold">actix-web</h3>
+                            </div>
+                            <span class="px-2 py-1 text-xs bg-amber-500 text-gray-900 rounded">Rust</span>
+                        </div>
+                        <p class="text-gray-300 mb-4">Implemented new middleware features and enhanced testing utilities.</p>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">4 PRs merged</span>
+                            <a href="#" class="text-amber-500 hover:text-amber-400">View Contributions</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="py-24 bg-gradient-to-r from-gray-900 to-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold mb-6">Interested in Working Together?</h2>
+                <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="index.html#contact" class="px-8 py-3 bg-amber-500 text-gray-900 rounded-md font-medium hover:bg-amber-400 transition duration-150">Get In Touch</a>
+                    <a href="#" class="px-8 py-3 border border-amber-500 text-amber-500 rounded-md font-medium hover:bg-amber-500 hover:text-gray-900 transition duration-150">View My Resume</a>
+                </div>
+            </div>
+        </section>
+        <!-- Footer -->
+        <footer class="bg-gray-900 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Samwuel Simiyu. All rights reserved.</p>
+                <div class="flex justify-center space-x-4 mt-4">
+                    <a href=""
+                          class="text-gray-400 hover:text-amber-500 transition duration-150">
+                            <i class="fab fa-github"></i>
+                    </a>
+                    <a href=""
+                          class="text-gray-400 hover:text-amber-500 transition duration-150">
+                            <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href=""
+                          class="text-gray-400 hover:text-amber-500 transition duration-150">
+                            <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href=""
+                          class="text-gray-400 hover:text-amber-500 transition duration-150">
+                            <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+        // Initialize Alpine.js
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('navbar', () => ({
+                mobileMenuOpen: false,
+            }));
+        });
+    </script>
+</body>
+</html>
